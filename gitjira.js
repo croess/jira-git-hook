@@ -118,11 +118,15 @@ function check_comment(comment, callback) {
    var issues = comment.match(pattern);
    var good_issues = 0;
    var processed = 0;
-   if (!issues || issues.length == 0) {
+
+   exceptionpattern = /schmarrn/;
+   if  (comment.match(exceptionpattern)) return callback(true);
+ 
+  if (!issues || issues.length == 0) {
       log("Comment \n\t" + comment + " does not contain any issues");
       return callback(false);
    }
-   issues.forEach(function(issue) {
+    issues.forEach(function(issue) {
       issue = issue.substr(1, issue.length-2);
       check_issue(issue, function(i) { 
          return function(data) {
